@@ -14,6 +14,7 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
 
         categoryRecyclerView.setAdapter(new CategoryRecyclerAdapter());
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Button tapped", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
