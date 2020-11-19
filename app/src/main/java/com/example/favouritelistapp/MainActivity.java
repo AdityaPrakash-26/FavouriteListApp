@@ -1,19 +1,23 @@
 package com.example.favouritelistapp;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.InputType;
 import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,11 +36,15 @@ public class MainActivity extends AppCompatActivity {
         categoryRecyclerView.setAdapter(new CategoryRecyclerAdapter());
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
+        //floating action button setup
         FloatingActionButton fab = findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Button tapped", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "Button tapped", Toast.LENGTH_SHORT).show();
+                displayCreateCategoryDialog();
             }
         });
     }
@@ -61,5 +69,27 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void displayCreateCategoryDialog(){
+        String alertTitle = getString(R.string.create_category);
+        String positiveButton = getString(R.string.positive_button_title);
+
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+
+        EditText categoryEditText = new EditText(this);
+
+        categoryEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+
+        alertBuilder.setTitle(alertTitle);
+        alertBuilder.setView(categoryEditText);
+
+        alertBuilder.setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertBuilder.create().show();
     }
 }
