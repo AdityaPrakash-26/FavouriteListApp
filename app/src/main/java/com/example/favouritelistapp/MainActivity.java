@@ -20,9 +20,12 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView categoryRecyclerView;
+    private CategoryManager mCategoryManager = new CategoryManager(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        ArrayList<Category> categories = mCategoryManager.retrieveCategories();
         categoryRecyclerView = findViewById(R.id.category_recyclerView);
-
-        categoryRecyclerView.setAdapter(new CategoryRecyclerAdapter());
+        categoryRecyclerView.setAdapter(new CategoryRecyclerAdapter(categories));
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
@@ -87,6 +90,12 @@ public class MainActivity extends AppCompatActivity {
         alertBuilder.setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Category category = new Category(categoryEditText.getText().toString(), new ArrayList<String>());
+                mCategoryManager.saveCategory(category);
+
+                CategoryRecyclerAdapter categoryRecyclerAdapter = (CategoryRecyclerAdapter) categoryRecyclerView.getAdapter();
+                categoryRecyclerAdapter.addCategory(category);
+
                 dialog.dismiss();
             }
         });

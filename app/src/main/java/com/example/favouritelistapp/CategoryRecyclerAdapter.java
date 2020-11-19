@@ -7,9 +7,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHolder>{
 
-    String[] categories = {"Hobbies", "Sports", "Games", "Gadgets", "Food", "Countries"};
+    //String[] categories = {"Hobbies", "Sports", "Games", "Gadgets", "Food", "Countries"};
+
+    private ArrayList<Category> categories;
+
+    public CategoryRecyclerAdapter(ArrayList<Category> categories) {
+
+    }
 
     @NonNull
     @Override
@@ -23,11 +31,16 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         holder.getTxtCategoryNumber().setText(Integer.toString(position+1));
-        holder.getTxtCategoryName().setText(categories[position]);
+        holder.getTxtCategoryName().setText(categories.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return categories.length;
+        return categories.size();
+    }
+
+    public void addCategory(Category category) {
+        categories.add(category);
+        notifyItemInserted(categories.size()-1);
     }
 }
