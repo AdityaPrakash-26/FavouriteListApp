@@ -1,6 +1,7 @@
 package com.example.favouritelistapp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView categoryRecyclerView;
     private CategoryManager mCategoryManager = new CategoryManager(this);
+
+    public static final String CATEGORY_OBJECT_KEY = "CATEGORY_KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,8 +100,16 @@ public class MainActivity extends AppCompatActivity {
                 categoryRecyclerAdapter.addCategory(category);
 
                 dialog.dismiss();
+                displayCategoryItems(category);
             }
         });
         alertBuilder.create().show();
+    }
+
+    private void displayCategoryItems(Category category){
+        Intent categoryItemsIntent = new Intent(this, Category.class);
+        categoryItemsIntent.putExtra(CATEGORY_OBJECT_KEY, category);
+        startActivity(categoryItemsIntent);
+
     }
 }

@@ -1,8 +1,9 @@
 package com.example.favouritelistapp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Category {
+public class Category implements Serializable {
     private String name;
     private ArrayList<String> items = new ArrayList<>();
 

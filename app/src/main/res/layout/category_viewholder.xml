@@ -10,6 +10,7 @@
         android:id="@+id/category_number_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:textColor="#FFFFFF"
         android:textSize="36sp" />
 
@@ -17,6 +18,7 @@
         android:id="@+id/category_name_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:textColor="#FFFFFF"
         android:textSize="36sp" />
 

@@ -16,7 +16,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
     private ArrayList<Category> categories;
 
     public CategoryRecyclerAdapter(ArrayList<Category> categories) {
-
+        this.categories = categories;
     }
 
     @NonNull
