@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CategoryRecyclerAdapter.CategoryIsClickedInterface {
 
     private RecyclerView categoryRecyclerView;
     private CategoryManager mCategoryManager = new CategoryManager(this);
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<Category> categories = mCategoryManager.retrieveCategories();
         categoryRecyclerView = findViewById(R.id.category_recyclerView);
-        categoryRecyclerView.setAdapter(new CategoryRecyclerAdapter(categories));
+        categoryRecyclerView.setAdapter(new CategoryRecyclerAdapter(categories, this));
         categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
@@ -107,9 +107,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayCategoryItems(Category category){
-        Intent categoryItemsIntent = new Intent(this, Category.class);
+        Intent categoryItemsIntent = new Intent(this, CategoryItemsActivity.class);
         categoryItemsIntent.putExtra(CATEGORY_OBJECT_KEY, category);
         startActivity(categoryItemsIntent);
 
+    }
+
+    @Override
+    public void categoryIsClicked(Category category) {
+        displayCategoryItems(category);
     }
 }

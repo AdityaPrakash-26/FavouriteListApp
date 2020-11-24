@@ -13,10 +13,16 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
 
     //String[] categories = {"Hobbies", "Sports", "Games", "Gadgets", "Food", "Countries"};
 
-    private ArrayList<Category> categories;
+    interface CategoryIsClickedInterface {
+        void categoryIsClicked (Category category);
+    }
 
-    public CategoryRecyclerAdapter(ArrayList<Category> categories) {
+    private ArrayList<Category> categories;
+    private CategoryIsClickedInterface categoryIsClickedInterface;
+
+    public CategoryRecyclerAdapter(ArrayList<Category> categories, CategoryIsClickedInterface categoryIsClickedInterface) {
         this.categories = categories;
+        this.categoryIsClickedInterface = categoryIsClickedInterface;
     }
 
     @NonNull
@@ -32,6 +38,13 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHo
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         holder.getTxtCategoryNumber().setText(Integer.toString(position+1));
         holder.getTxtCategoryName().setText(categories.get(position).getName());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                categoryIsClickedInterface.categoryIsClicked(categories.get(position));
+            }
+        });
     }
 
     @Override
