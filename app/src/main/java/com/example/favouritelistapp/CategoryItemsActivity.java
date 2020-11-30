@@ -3,6 +3,7 @@ package com.example.favouritelistapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
@@ -30,6 +31,8 @@ public class CategoryItemsActivity extends AppCompatActivity {
         setTitle(category.getName());
 
         itemsRecyclerView = findViewById(R.id.items_recycler_view);
+        itemsRecyclerView.setAdapter(new ItemsRecyclerAdapter(category));
+        itemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         addItemFloatingActionButton = findViewById(R.id.add_item_button);
 
         addItemFloatingActionButton.setOnClickListener(new View.OnClickListener() {
