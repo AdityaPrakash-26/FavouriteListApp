@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -58,5 +60,18 @@ public class CategoryItemsActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         }).create().show();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(MainActivity.CATEGORY_OBJECT_KEY, category);
+
+        Intent intent = new Intent();
+        intent.putExtras(bundle);
+        setResult(Activity.RESULT_OK, intent);
+
+        super.onBackPressed();
     }
 }
